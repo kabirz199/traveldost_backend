@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets,filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Group, Trip, InstagramModel
@@ -11,6 +11,8 @@ class GroupViewSet(viewsets.ModelViewSet):
 class TripViewSet(viewsets.ModelViewSet):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['trip_spot', 'destination']
 
 class InstagramViewSet(viewsets.ModelViewSet):
     queryset = InstagramModel.objects.all()
