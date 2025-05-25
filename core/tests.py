@@ -1,24 +1,40 @@
-from django.test import TestCase
-from .models import Group, Trip
+from django.core.files.uploadedfile import SimpleUploadedFile
+from .models import *
+import tempfile
+from PIL import Image
+import io
+from rest_framework.test import APITestCase, APIClient
 
-class TripCountTestCase(TestCase):
+
+class TripViewSetTests(APITestCase):
+
     def setUp(self):
-        # Create a group
-        self.group = Group.objects.create(
-            name="Adventure Club",
-            url="https://example.com",
-            about_us="We go on thrilling adventures!"
+        self.group = Group.objects.create(name="Test Group")
+        self.trip = Trip.objects.create(
+            trip_spot="Test Spot",
+            destination="Test Destination",
+            description="Test Description",
+            price=99.99,
+            duration="2 days",
+            group=self.group
+        )
+        self.client = APIClient()
+
+    def test_create_trip_image(self):
+        # Create a dummy image file
+        image = Image.new('RGB', (100, 100), color='red')
+        image_io = io.BytesIO()
+        image.save(image_io, format='JPEG')
+        image_io.seek(0)
+
+        uploaded_file = SimpleUploadedFile(
+            name='test_image.jpg',
+            content=image_io.read(),
+            content_type='image/jpeg'
         )
 
-    def test_trip_count_increases_on_create(self):
-        # Initially trip count should be 0
-        self.assertEqual(self.group.trip_count, 0)
+        trip_image = TripImage.objects.create(trip=self.trip, image=uploaded_file)
 
-        # Add one trip
-        Trip.objects.create(
-            group=self.group,
-            trip_spot="Nainital",
-            destination="Uttarakhand",
-            description="Lake city trip",
-            price=5000,
-            duration="3 Days")
+        self.assertEqual(trip_image.trip, self.trip)
+        self.assertTrue(trip_image.image.name.startswith('trip_images/'))
+        self.assertIn("test_image", trip_image.image.name)

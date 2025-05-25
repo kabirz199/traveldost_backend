@@ -42,10 +42,12 @@ class Trip(models.Model):
         group.save()
 
 
-class TripImage(models.CharField):
+class TripImage(models.Model):
       trip=models.ForeignKey(Trip,on_delete=models.CASCADE,related_name='trip_image')
       image=models.ImageField(upload_to='trip_images/')
 
+      def __str__(self):
+        return f"Image for trip {self.trip.trip_spot}"
       
 # Instagram Models
 

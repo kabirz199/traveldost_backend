@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import Group, Trip, InstagramModel
 from .serializers import GroupSerializer, TripSerializer, InstagramSerializer,TripImage,TripImageSerializer
 
@@ -17,3 +19,21 @@ class InstagramViewSet(viewsets.ModelViewSet):
 class TripImageViewSet(viewsets.ModelViewSet):
     queryset = TripImage.objects.all()
     serializer_class = TripImageSerializer
+
+class DestinationInfoView(APIView):
+    def get(self, request):
+        trips = Trip.objects.all()
+        destination_data = {}
+
+        for trip in trips:
+            dest = trip.destination
+            if dest not in destination_data:
+                # Count total trips for this destination
+                trip_count = Trip.objects.filter(destination=dest).count()
+                destination_data[dest] = {
+                    'trip_count': trip_count,
+                    'trips': []
+                }
+            destination_data[dest]['trips'].append(TripSerializer(trip).data)
+
+        return Response(destination_data)
