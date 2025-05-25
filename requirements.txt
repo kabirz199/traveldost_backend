@@ -14,4 +14,7 @@ gunicorn
 whitenoise
 drf-yasg
 django-cors-headers
+cloudinary
+django-cloudinary-storage
+
 

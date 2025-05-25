@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'core',
     'drf_yasg',
     'corsheaders',
+    'cloudinary',
+    'django_cloudinary_storage',
    
      
 ]
@@ -141,3 +143,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'root',
+    'API_KEY': '451543678427536',
+    'API_SECRET': 'K4NHmlLifhheNMsHpjCKb3qTrGY',
+}
+
+# Tell Django to use Cloudinary storage for media files
+DEFAULT_FILE_STORAGE = 'django_cloudinary_storage.storage.MediaCloudinaryStorage'
