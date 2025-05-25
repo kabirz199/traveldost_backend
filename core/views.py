@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from .models import Group, Trip, InstagramModel
-from .serializers import GroupSerializer, TripSerializer, InstagramSerializer
+from .serializers import GroupSerializer, TripSerializer, InstagramSerializer,TripImage,TripImageSerializer
 
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
@@ -13,3 +13,7 @@ class TripViewSet(viewsets.ModelViewSet):
 class InstagramViewSet(viewsets.ModelViewSet):
     queryset = InstagramModel.objects.all()
     serializer_class = InstagramSerializer
+
+class TripImageViewSet(viewsets.ModelViewSet):
+    queryset = TripImage.objects.all()
+    serializer_class = TripImageSerializer

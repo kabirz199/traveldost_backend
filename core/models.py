@@ -14,6 +14,7 @@ class Group(models.Model):
 
      def __str__(self):
         return self.name
+     
 
 
 class Trip(models.Model):
@@ -40,6 +41,12 @@ class Trip(models.Model):
         group.trip_count -= 1
         group.save()
 
+
+class TripImage(models.CharField):
+      trip=models.ForeignKey(Trip,on_delete=models.CASCADE,related_name='trip_image')
+      image=models.ImageField(upload_to='trip_images/')
+
+      
 # Instagram Models
 
 class InstagramModel(models.Model):
