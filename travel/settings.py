@@ -79,9 +79,13 @@ WSGI_APPLICATION = 'travel.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'traveldb_xj4b',
+        'USER': 'traveldb_xj4b_user',
+        'PASSWORD': 'c77oML0AS0ObDWCC386yU4dfStP5CWxO',
+        'HOST': 'dpg-d0pfglmuk2gs739j559g-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 
