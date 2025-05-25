@@ -13,4 +13,5 @@ tzdata==2025.2
 gunicorn
 whitenoise
 drf-yasg
+django-cors-headers
 
