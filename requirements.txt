@@ -12,3 +12,5 @@ text-unidecode==1.3
 tzdata==2025.2
 gunicorn
 whitenoise
+drf-yasg
+
