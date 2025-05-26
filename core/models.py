@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -44,7 +45,7 @@ class Trip(models.Model):
 
 class TripImage(models.Model):
       trip=models.ForeignKey(Trip,on_delete=models.CASCADE,related_name='trip_image')
-      image=models.ImageField(upload_to='trip_images/')
+      image=CloudinaryField('image')
 
       def __str__(self):
         return f"Image for trip {self.trip.trip_spot}"
