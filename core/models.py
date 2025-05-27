@@ -25,6 +25,7 @@ class Trip(models.Model):
     description=models.TextField()
     price=models.DecimalField(max_digits=10, decimal_places=2)
     duration=models.CharField(max_length=50)
+    url=models.URLField()
 
     def __str__(self):
         return f"{self.trip_spot}---{self.group.name}"
