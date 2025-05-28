@@ -21,9 +21,9 @@ class Group(models.Model):
 class Trip(models.Model):
     group=models.ForeignKey(Group,on_delete=models.CASCADE,related_name='groups')
     trip_spot=models.CharField(max_length=100)
-    trip_priority = models.PositiveIntegerField(null=True, blank=True)
+    trip_priority =  models.BooleanField(default=False)
     destination=models.CharField(max_length=100)
-    destination_priority = models.PositiveIntegerField(null=True, blank=True)
+    destination_priority =  models.BooleanField(default=False)
     description=models.TextField()
     price=models.DecimalField(max_digits=10, decimal_places=2)
     duration=models.CharField(max_length=50)
