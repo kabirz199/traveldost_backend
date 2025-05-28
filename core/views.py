@@ -32,8 +32,11 @@ class DestinationInfoView(APIView):
             if dest not in destination_data:
                 # Count total trips for this destination
                 trip_count = Trip.objects.filter(destination=dest).count()
+                has_priority = Trip.objects.filter(destination=dest, destination_priority=True).exists()
+
                 destination_data[dest] = {
                     'trip_count': trip_count,
+                    'destination_priority': has_priority,
                     'trips': []
                 }
             destination_data[dest]['trips'].append(TripSerializer(trip).data)
