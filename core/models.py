@@ -64,6 +64,7 @@ class InstagramModel(models.Model):
     username=models.CharField(max_length=100)
     name=models.CharField(max_length=100)
     url=models.URLField()
+    group_priority= models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

@@ -25,9 +25,10 @@ class TripAdmin(admin.ModelAdmin):
 
 @admin.register(InstagramModel)
 class InstagramModelAdmin(admin.ModelAdmin):
-    list_display = ('username', 'name', 'url')   # Columns visible in list view
+    list_display = ('username', 'name', 'url','group_priority')   # Columns visible in list view
     search_fields = ('username', 'name')         # Search by username or name
-    list_per_page = 20                            # Pagination, 20 per page
+    list_per_page = 20   
+    list_editable =['group_priority']                         # Pagination, 20 per page
 
 
 @admin.register(TripImage)
