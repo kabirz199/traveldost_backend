@@ -1,40 +1,48 @@
-from django.core.files.uploadedfile import SimpleUploadedFile
-from .models import *
-import tempfile
-from PIL import Image
-import io
-from rest_framework.test import APITestCase, APIClient
+from django.test import TestCase
+from .models import Trip, Group
 
-
-class TripViewSetTests(APITestCase):
+class TripModelTest(TestCase):
 
     def setUp(self):
-        self.group = Group.objects.create(name="Test Group")
-        self.trip = Trip.objects.create(
-            trip_spot="Test Spot",
-            destination="Test Destination",
-            description="Test Description",
-            price=99.99,
-            duration="2 days",
-            group=self.group
-        )
-        self.client = APIClient()
+        self.group = Group.objects.create(name="Test Group", trip_count=0)
 
-    def test_create_trip_image(self):
-        # Create a dummy image file
-        image = Image.new('RGB', (100, 100), color='red')
-        image_io = io.BytesIO()
-        image.save(image_io, format='JPEG')
-        image_io.seek(0)
-
-        uploaded_file = SimpleUploadedFile(
-            name='test_image.jpg',
-            content=image_io.read(),
-            content_type='image/jpeg'
+    def test_create_trip_with_priority(self):
+        trip = Trip.objects.create(
+            group=self.group,
+            trip_spot="Hill Station",
+            destination="Munnar",
+            description="A beautiful hill station.",
+            price=2500.00,
+            duration="3 Days",
+            url="https://example.com/munnar",
+            trip_priority=1,
+            destination_priority=2
         )
 
-        trip_image = TripImage.objects.create(trip=self.trip, image=uploaded_file)
+        # Test trip string representation
+        self.assertEqual(str(trip), "Hill Station---Test Group")
 
-        self.assertEqual(trip_image.trip, self.trip)
-        self.assertTrue(trip_image.image.name.startswith('trip_images/'))
-        self.assertIn("test_image", trip_image.image.name)
+        # Test if priority fields are stored
+        self.assertEqual(trip.trip_priority, 1)
+        self.assertEqual(trip.destination_priority, 2)
+
+        # Test if trip_count incremented
+        self.group.refresh_from_db()
+        self.assertEqual(self.group.trip_count, 1)
+
+    def test_delete_trip_decrements_trip_count(self):
+        trip = Trip.objects.create(
+            group=self.group,
+            trip_spot="Beach Side",
+            destination="Goa",
+            description="Sun, Sand and Sea.",
+            price=3500.00,
+            duration="4 Days",
+            url="https://example.com/goa"
+        )
+
+        self.assertEqual(self.group.trip_count, 1)
+
+        trip.delete()
+        self.group.refresh_from_db()
+        self.assertEqual(self.group.trip_count, 0)

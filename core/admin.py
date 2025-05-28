@@ -16,11 +16,12 @@ class TripImageInline(admin.TabularInline):  # or admin.StackedInline for a vert
 
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):
-    list_display = ('trip_spot', 'group', 'destination', 'price', 'duration')
+    list_display = ('trip_spot', 'group', 'destination', 'price', 'duration','trip_priority', 'destination_priority')
     search_fields = ('trip_spot', 'destination')
     list_filter = ('group', 'duration')
     ordering = ('trip_spot',)
     inlines = [TripImageInline]
+    list_editable = ['trip_priority', 'destination_priority']
 
 @admin.register(InstagramModel)
 class InstagramModelAdmin(admin.ModelAdmin):

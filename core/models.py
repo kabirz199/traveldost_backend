@@ -21,11 +21,15 @@ class Group(models.Model):
 class Trip(models.Model):
     group=models.ForeignKey(Group,on_delete=models.CASCADE,related_name='groups')
     trip_spot=models.CharField(max_length=100)
+    trip_priority = models.PositiveIntegerField(null=True, blank=True)
     destination=models.CharField(max_length=100)
+    destination_priority = models.PositiveIntegerField(null=True, blank=True)
     description=models.TextField()
     price=models.DecimalField(max_digits=10, decimal_places=2)
     duration=models.CharField(max_length=50)
     url=models.URLField()
+
+    
 
     def __str__(self):
         return f"{self.trip_spot}---{self.group.name}"
