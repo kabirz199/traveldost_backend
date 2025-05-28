@@ -12,6 +12,7 @@ class Group(models.Model):
      url=models.URLField()
      about_us=models.TextField()
      trip_count = models.IntegerField(default=0)
+     
 
      def __str__(self):
         return self.name
@@ -28,6 +29,8 @@ class Trip(models.Model):
     price=models.DecimalField(max_digits=10, decimal_places=2)
     duration=models.CharField(max_length=50)
     url=models.URLField()
+
+    group_priority= models.BooleanField(default=False)
 
     
 
