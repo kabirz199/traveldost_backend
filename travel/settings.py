@@ -87,10 +87,10 @@ WSGI_APPLICATION = 'travel.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'traveldb_xj4b',
-        'USER': 'traveldb_xj4b_user',
-        'PASSWORD': 'c77oML0AS0ObDWCC386yU4dfStP5CWxO',
-        'HOST': 'dpg-d0pfglmuk2gs739j559g-a.oregon-postgres.render.com',
+        'NAME': 'travel_dost_db',
+        'USER': 'travel_dost_db_user',
+        'PASSWORD': 'bYYO0sddbOLwGQG4hy4gkEnRMEtpbIwp',
+        'HOST': 'dpg-d0ssi76mcj7s73fc03p0-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }
@@ -144,9 +144,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dbkj0h2sh',
-    'API_KEY': '451543678427536',
-    'API_SECRET': 'K4NHmlLifhheNMsHpjCKb3qTrGY',
+    'CLOUD_NAME': 'dmxafyehz',
+    'API_KEY': '821317946869232',
+    'API_SECRET': 'F-6xtV3DizaLBkLo_IcVfJqiaN8',
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
